@@ -1,25 +1,18 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { withRouter, Redirect, Route } from 'react-router-dom';
-// import { withRouter } from "react-router";
-import Paper from '@material-ui/core/Paper';
+import React from 'react';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import styles from '../styles/loginStyles';
-import styled from 'styled-components';
-import { compose } from 'recompose';
-import { login } from '../../store/actions/userActions';
 
-const PaperStlyled = styled(Paper)`
-  margin: auto;
-`;
+const INTL_MAP = {
+  loginLabel: 'Please enter your user information',
+  usLabel: 'Username',
+  pwLabel: 'Password',
+  signInLabel: 'Sign in',
+  empty_username: 'Please enter your username',
+  empty_password: 'Please enter your password'
+};
 
-class LoginPage extends Component {
+class LoginForm extends React.Component {
   state = {
-    redirectToReferrer: false,
     formData: {
       email: '',
       password: ''
@@ -38,24 +31,15 @@ class LoginPage extends Component {
       email: this.state.formData.email,
       password: this.state.formData.password
     }
-    this.props.login(user);
-    this.props.history.push('/');
+    // this.props.login(user);
+    this.props.history.push('/app');
   }
 
   render() {
-    const { classes, isAuthenticated } = this.props;
     let { formData } = this.state;
 
-    if (isAuthenticated) {
-      this.props.history.push('/');
-      return <Redirect to='/' />
-    }
-
     return (
-      <PaperStlyled className={classes.root} elevation={1} >
-        <Typography align="center" variant="h5" component="h2">
-          Login
-        </Typography>
+      <div className="login-form">
         <ValidatorForm
           ref="form"
           onSubmit={this.handleLogin}
@@ -85,28 +69,45 @@ class LoginPage extends Component {
             validators={['required']}
             errorMessages={['This field is required']}
           />
-          <br /><br />
-          <Button type="submit" variant="contained" size="small" color="primary" fullWidth>
+          <Button type="submit" variant="contained" size="small" color="primary">
             Login
           </Button>
         </ValidatorForm>
-      </PaperStlyled>
+        
+        {/* <form
+            autoComplete="off"
+            className="clearfix"
+            noValidate
+            onChange={this.props.onChangeForm}
+            onSubmit={this.props.onSubmitLogin}
+            ref={this.handleMountRefForm}
+        >
+          <TextField
+              errorStyle={styles.styleErr}
+              errorText={INTL_MAP[this.props.errors['error-username']]}
+              floatingLabelText={INTL_MAP['usLabel']}
+              name="username"
+              style={styles.styleInput}
+          />
+
+          <TextField
+              errorStyle={styles.styleErr}
+              errorText={INTL_MAP[this.props.errors['error-password']]}
+              floatingLabelText={INTL_MAP['pwLabel']}
+              name="password"
+              style={styles.styleInput}
+              type="password"
+          />
+
+          <Button
+              label={INTL_MAP['signInLabel']}
+              style={styles.styleBtn}
+              type="submit"
+          />
+        </form> */}
+      </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.user.auth
-  // status: state.user.login.status
-});
-
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({
-    login
-  }, dispatch)
-});
-
-export default withRouter(compose(
-  withStyles(styles, { withTheme: true }),
-  connect(mapStateToProps, mapDispatchToProps)
-)(LoginPage));
+export default LoginForm;

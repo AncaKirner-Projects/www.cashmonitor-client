@@ -8,7 +8,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { logout } from '../../store/actions/userActions';
-import { SignedInLinks } from './SignedInLinks';
+import SignedInLinks from './SignedInLinks';
 
 class NavBar extends Component {
   state = {
@@ -62,4 +62,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBar));
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

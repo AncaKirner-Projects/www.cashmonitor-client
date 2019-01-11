@@ -1,0 +1,5 @@
+export default {
+  LOGIN_REQUEST: Symbol('LOGIN_REQUEST'),
+  LOGIN_SUCCESS: Symbol('LOGIN_SUCCESS'),
+  LOGIN_FAILURE: Symbol('LOGIN_FAILURE')
+};

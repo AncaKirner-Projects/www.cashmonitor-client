@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -8,8 +8,11 @@ import AddIncome from '../income/AddIncome';
 import AddSpent from '../income/AddSpent';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { logout } from '../../store/actions/userActions';
 
-export class SignedInLinks extends Component {
+class SignedInLinks extends Component {
   state = {
     anchorEl: null,
     open: false
@@ -60,9 +63,18 @@ export class SignedInLinks extends Component {
           onClose={this.handleMenuClose}
         >
           <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
-          <MenuItem to="/" component={Link}>Logout</MenuItem>
+          <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
         </Menu>
       </React.Fragment>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({
+    logout
+  }, dispatch)
+});
+
+
+export default withRouter(connect(null, mapDispatchToProps)(SignedInLinks));

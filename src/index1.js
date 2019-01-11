@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import store from './store/configureStore';
 import Root from './components/Root';
+import './components/styles/general.css';
 
 ReactDOM.render(
   <Root store={store} />,

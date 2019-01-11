@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Drawer from '@material-ui/core/Drawer';
@@ -13,11 +14,16 @@ import ListItemText from '@material-ui/core/ListItemText';
 // import { Link } from 'react-router-dom';
 // import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { MenuList, MenuItem } from '@material-ui/core';
 
 
 const TypoStlyled = styled(Typography)`
-  padding: 10px 0px 0px 10px;
+  padding: 10px 0px 0px 15px;
   text-decoration: none;
+`;
+const NestedDiv = styled('div')`
+  margin-left: 0px;
+  padding-left: 20px;
 `;
 
 class SideMenu extends Component {
@@ -26,40 +32,41 @@ class SideMenu extends Component {
   };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes, theme, location: { pathname } } = this.props;
+    console.log(pathname);
     console.log('SIDEMENU', this.props);
     const { open } = this.state;
     return (
       <Drawer
+        className={classes.drawer}
         variant="permanent"
-        className={classNames(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open
-        })}
         classes={{
-          paper: classNames({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open
-          })
+          paper: classes.drawer,
         }}
-        open={open}
       >
-        <div className={classes.toolbar}>
-          <IconButton>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </div>
-        <Divider />
-        {['Dashboard', 'Settings'].map((text, index) => (
-          <ListItem button key={text}>
-            {/* <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon> */}
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-        <TypoStlyled variant="h6"></TypoStlyled>
-        <List>
-          {/* <MenuItems /> */}
-        </List>
+        <div className={classes.toolbar}></div>
+        <MenuList>
+          <MenuItem component={Link} to='/'>Dashboard</MenuItem>
+          <Divider />
+          <MenuItem component={Link} to='/settings' >Settings</MenuItem>
+          <NestedDiv>
+            <MenuItem
+              component={Link}
+              to='/settings/accounts'
+            >
+              My accounts
+            </MenuItem>
+            <MenuItem
+              component={Link}
+              to='/settings/categories'
+            >
+              Categories & Budget
+            </MenuItem>
+          </NestedDiv>
+          <Divider />
+        </MenuList>
+
+
       </Drawer>
     );
   }
@@ -78,4 +85,4 @@ SideMenu.propTypes = {
 
 // export default connect(mapStateToProps)(SideMenu);
 
-export default SideMenu;
+export default withRouter(SideMenu);

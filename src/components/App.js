@@ -10,8 +10,10 @@ import NavBar from './layout/NavBar';
 import LoginPage from './auth/LoginPage';
 // import styled from 'styled-components';
 import PrivateRoute from '../routes/PrivateRoute';
-import Home from './layers/Home';
+import Home from './layout/Home';
 import AddIncome from './income/AddIncome';
+import { Redirect } from 'react-router-dom'
+import Accounts from './settings/Accounts';
 
 // const LoginPageStlyled = styled(LoginPage)`
 //   margin-top: 200px;
@@ -29,11 +31,14 @@ class App extends Component {
             <Home {...props} auth={isAuthenticated} classes={classes} theme={theme} />}
           />
           <Route path="/login" component={LoginPage} />
-          <Route path="/add/income" component={AddIncome} />
+          <Route path="/settings/accounts" component={Accounts} />
+          {/* <Route path="/settings" component={Settings} /> */}
           {/* <PrivateRoute exact path="/"
             component={Home} auth={isAuthenticated} classes={classes} theme={theme}
           /> */}
-          <Route path="*" component={() => "404 NOT FOUND"} />
+          {/* <Route path="*" exact render={(props) =>
+            <Home {...props} auth={isAuthenticated} classes={classes} theme={theme} />}
+          /> */}
         </Switch>
 
 
