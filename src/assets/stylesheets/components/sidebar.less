@@ -1,0 +1,103 @@
+.drawer{
+  width: @menu-width;
+  margin-top: @top-header;
+  background-color: @menu-color;
+  // padding-top: 40px;
+}
+.app-side-bar {
+  > div > div {
+    min-width: @menu-width;
+    padding: 0px 15px 30px;
+    background-color: @menu-color;
+    height: 100%;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    .drop-shadow(10px, 0, 100px, 0.1) !important;
+  }
+
+  .app-side-bar-options {
+    ul {
+      padding: 0;
+      margin-top: 30px;
+      > li {
+        text-transform: uppercase;
+        font-size: 16px;
+        margin: 5px 0;
+
+        a {
+          color: @gris;
+          font-weight: 600;
+          width: 100%;
+          display: block;
+          font-family: 'Source Sans Pro', sans-serif;
+          .material-icons {
+            margin-right: 10px;
+            font-size: 30px;
+          }
+          > span {
+            vertical-align: top;
+            line-height: 30px;
+          }
+
+          &.selected {
+            color: @gris-hover;
+            .material-icons {
+              color: @orange;
+            }
+            .customers { background-position: left 0; }
+            .stores { background-position: left -65px; }
+            .countries { background-position: left -130px; }
+            .brands { background-position: left -196px; }
+            .jobs { background-position: left -261px; }
+            .engineers { background-position: left -325px; }
+            .parts { background-position: left -388px; }
+            .documents-library { background-position: left -450px; }
+            .user-management { background-position: left -512px; }
+          }
+
+          &:hover {
+            color: @gris-hover;
+            .material-icons {
+              color: @orange;
+            }
+
+            .customers { background-position: left 0; }
+            .stores { background-position: left -65px; }
+            .countries { background-position: left -130px; }
+            .brands { background-position: left -196px; }
+            .jobs { background-position: left -261px; }
+            .engineers { background-position: left -325px; }
+            .parts { background-position: left -388px; }
+            .documents-library { background-position: left -450px; }
+            .user-management { background-position: left -512px; }
+          }
+
+          > svg {
+            text-indent: -9999px;
+            // background-image: url('../../../../Images/menu_icons.png');
+            width: 30px;
+            display: inline-block;
+            margin-right: 10px;
+            height: 30px;
+            &.material-icons {
+              text-indent: 0;
+              background-image: none;
+            }
+          }
+
+          .customers { background-position: right 0; }
+          .stores { background-position: right -65px; }
+          .countries { background-position: right -130px; }
+          .brands { background-position: right -196px; }
+          .jobs { background-position: right -261px; }
+          .engineers { background-position: right -325px; }
+          .parts { background-position: right -388px; }
+          .documents-library { background-position: right -450px; }
+          .user-management { height: 25px; background-position: right -512px; }
+        } // a ENDs here
+      } // > li ENDs here
+    } // ul ENDs here
+  } // .app-side-bar-options ENDs here
+} // .app-side-bar ENDs here

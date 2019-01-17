@@ -6,9 +6,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
-import styles from '../styles/moneyStyles';
 
-class DialogAddIncome extends Component {
+class DialogCashManagement extends Component {
   state = {
     open: false,
     openAlertDialog: false,
@@ -27,7 +26,7 @@ class DialogAddIncome extends Component {
   };
 
   handleClose = () => {
-    this.props.handleClose();
+    this.props.onClose();
     this.setState({
       formData: {
         amount: '',
@@ -40,7 +39,7 @@ class DialogAddIncome extends Component {
 
   handleSubmit = () => {
     this.handleClose();
-    this.props.handleSubmit(this.state.formData);
+    this.props.onSubmit(this.state.formData);
   }
 
   render() {
@@ -58,7 +57,7 @@ class DialogAddIncome extends Component {
           onSubmit={this.handleSubmit}
           onError={errors => console.log(errors)}
         >
-          <DialogTitle id="form-dialog-title" >{title}</DialogTitle>
+          <DialogTitle disableTypography  id="form-dialog-title" className="dialog-header">{title}</DialogTitle>
           <DialogContent>
             <TextField
               margin="normal"
@@ -101,13 +100,13 @@ class DialogAddIncome extends Component {
               autoFocus
               select
               label="Account"
-              className={styles.textField}
+              className="select-text-field"
               value={formData.account}
               onChange={this.handleChange('account')}
               SelectProps={{
                 native: true,
                 MenuProps: {
-                  className: styles.menu
+                  className: "select-menu"
                 }
               }}
               margin="normal"
@@ -144,4 +143,4 @@ class DialogAddIncome extends Component {
   }
 }
 
-export default DialogAddIncome;
+export default (DialogCashManagement);

@@ -1,0 +1,40 @@
+.app-top-bar {
+  float: left;
+  // padding-left: 237px;
+  width: 100%;
+  height: @top-header;
+  background-color: @header-color;
+  color: @header-text-color;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left:0;
+  
+  -webkit-box-shadow: 0 0 5px 1px #B0B0B0;
+  box-shadow: 0 0 15px 0px #dedede;
+
+  .app-top-bar-options {
+    padding: 5px 30px;
+
+    > form {
+      float: left;
+      width: 50%;
+      position: relative;
+
+      .searchBtn {
+        bottom: 10px;
+        right: -15px;
+      }
+    }
+
+    .user-menu {
+      > span {
+        line-height: 48px;
+        vertical-align: top;
+        font-size: 18px;
+        font-weight: bold;
+        color: #5f5e63;
+      }
+    }
+  }
+}

@@ -1,7 +1,8 @@
 import React from 'react';
-// import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { isAuthenticated } from '../../../helpers/auth';
+import Home from '../../Home/components/Home';
 
 class Application extends React.Component {
   render(){
@@ -10,8 +11,11 @@ class Application extends React.Component {
     }
     
     return (
-      <div>
-        Application
+      <div className="app">
+        <Switch>
+          <Route exact component={Home} path="/app/home" />
+          <Redirect from="/app" to="/app/home" />
+        </Switch>
       </div>
     )
   }

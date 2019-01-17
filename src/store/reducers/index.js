@@ -1,1 +1,1 @@
-export {default as login} from '../../pages/Login/reducers/LoginReducer';
+export { default as login } from '../../pages/Login/reducers/AuthReducer';
