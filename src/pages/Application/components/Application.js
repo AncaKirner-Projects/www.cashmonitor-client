@@ -2,12 +2,13 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { isAuthenticated } from '../../../helpers/auth';
+import  { history } from '../../../store/index';
 import Home from '../../Home/components/Home';
 
 class Application extends React.Component {
   render(){
     if (!isAuthenticated()) {
-      this.props.history.push('/login');
+      history.push('/login');
     }
     
     return (

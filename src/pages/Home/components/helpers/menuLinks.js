@@ -1,3 +1,8 @@
+import React from 'react';
+import Equalizer from '@material-ui/icons/Equalizer';
+import AccountBalanceWallet from '@material-ui/icons/AccountBalanceWallet';
+import Category from '@material-ui/icons/Category';
+
 export let menuList = [
   {
     label: 'Dashboard',
@@ -24,3 +29,12 @@ export let menuList = [
     classname: 'material-icons menu-element'
   },
 ];
+
+export const getIcon = (name) => {
+  let icons = [];
+  icons['dashboard'] = <Equalizer />;
+  icons['account'] = <AccountBalanceWallet />;
+  icons['category'] = <Category />;
+
+  return icons[name] ? icons[name] : null;
+}

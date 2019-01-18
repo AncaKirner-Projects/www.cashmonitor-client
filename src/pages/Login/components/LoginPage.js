@@ -4,11 +4,12 @@ import Typography from '@material-ui/core/Typography';
 
 import { isAuthenticated } from '../../../helpers/auth';
 import LoginForm from './LoginForm';
+import { history } from '../../../store/index';
 
 class LoginPage extends React.Component {
   render(){
     if (isAuthenticated()) {
-      this.props.history.push('/app');
+      history.push('/app');
     }
     
     return (

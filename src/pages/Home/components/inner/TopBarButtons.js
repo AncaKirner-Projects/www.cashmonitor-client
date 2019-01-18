@@ -9,11 +9,11 @@ class TopBarButtons extends Component {
   spentIcon = <RemoveFromQueue />;
   incomeIcon= <AddToQueue />;
 
-  handleAddSpent() {
+  handleAddSpent = () => {
 
   }
 
-  handleAddIncome() {
+  handleAddIncome = () => {
 
   }
 

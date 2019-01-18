@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+
 import { login } from '../actions/authActions';
+import  { history } from '../../../store/index';
 
 const INTL_MAP = {
   loginLabel: 'Please enter your user information',
@@ -36,7 +38,7 @@ class LoginForm extends React.Component {
     }
 
     this.props.login(user);
-    this.props.history.push('/app');
+    history.push('/app');
   }
 
   render() {

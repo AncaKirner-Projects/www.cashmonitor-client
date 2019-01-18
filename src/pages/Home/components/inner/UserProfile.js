@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { withRouter } from "eact-router-dom";
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+
+import removeCookies from '../../../../helpers/cookiesRemover';
+import { history } from '../../../../store/index';
 
 class UserProfile extends Component {
   state = {
@@ -20,11 +22,9 @@ class UserProfile extends Component {
   };
 
   handleLogout = () => {
-    // this.props.logout();
-    console.log(this.props);
-    this.props.history.push('/login');
-
-    // this.setState({ anchorEl: null });
+    removeCookies(true);
+  //   // this.props.logout();
+    history.push('/login');
   }
 
   render() { 
@@ -54,4 +54,4 @@ class UserProfile extends Component {
   }
 }
  
-export default withRouter(UserProfile);
+export default (UserProfile);
