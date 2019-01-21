@@ -4,10 +4,18 @@
   background-color: @menu-color;
   // padding-top: 40px;
 }
+.header-menu {
+  color: @gris;
+  font-weight: 600;
+  padding: 10px 0px 5px;
+  display: block;
+  cursor: default;
+  font-family: 'Source Sans Pro', sans-serif;
+}
 .app-side-bar {
   > div > div {
     min-width: @menu-width;
-    padding: 0px 15px 30px;
+    padding: 0px 5px 30px;
     background-color: @menu-color;
     height: 100%;
     position: fixed;
@@ -29,6 +37,7 @@
         a {
           color: @gris;
           font-weight: 600;
+          padding-left: 10px;
           width: 100%;
           display: block;
           font-family: 'Source Sans Pro', sans-serif;
@@ -42,7 +51,7 @@
           }
 
           &.selected {
-            color: @gris-hover;
+            color: @gris-selected;
             .material-icons {
               color: @orange;
             }

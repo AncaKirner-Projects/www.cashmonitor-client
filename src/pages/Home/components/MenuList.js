@@ -3,6 +3,14 @@ import { NavLink  } from 'react-router-dom';
 
 import { menuList, getIcon } from './helpers/menuLinks';
 
+const selectableLink = (menu) => {
+  return (
+    <NavLink activeClassName="selected" to={menu.href}>
+      {getIcon(menu.icon)}
+      <span>{menu.label}</span>
+    </NavLink>
+)};
+
 class MenuList extends React.Component {
  render() {
    return (
@@ -10,10 +18,9 @@ class MenuList extends React.Component {
      { 
       menuList.map((menu, i) => 
         <li key={i}>
-          <NavLink  activeClassName="selected" to={menu.href}>
-            {getIcon(menu.icon)}
-            <span>{menu.label}</span>
-          </NavLink>
+          { 
+            menu.icon ? selectableLink(menu) : <span className="header-menu">{menu.label}</span>
+          }
         </li>
       )
     }
