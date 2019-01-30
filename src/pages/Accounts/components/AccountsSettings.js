@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 
 import SimpleTable from '../../Application/components/SimpleTable';
 
-class Accounts extends Component {
+class AccountSettings extends Component {
   state = {}
   render() {
     return (
@@ -17,4 +17,4 @@ class Accounts extends Component {
   }
 }
 
-export default Accounts;
+export default AccountSettings;

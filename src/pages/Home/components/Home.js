@@ -3,9 +3,9 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 
 import SideBar from './SideBar';
 import TopBar from './TopBar';
-import Accounts from '../../Accounts/components/Accounts';
-import Categories from '../../Accounts/components/Accounts';
-import Dashboard from '../../Accounts/components/Accounts';
+import AccountSettings from '../../Accounts/components/AccountsSettings';
+import Categories from '../../Categories/components/CategoriesSetings';
+import Dashboard from '../../Accounts/components/AccountsSettings';
 
 class Home extends React.Component {
   render() {
@@ -18,7 +18,7 @@ class Home extends React.Component {
             <div className="app-content-options">
               <Switch>
                 <Route exact strict component={Dashboard} path="/app/home/dashboard" />
-                <Route exact strict component={Accounts} path="/app/home/settings/accounts" />
+                <Route exact strict component={AccountSettings} path="/app/home/settings/accounts" />
                 <Route exact strict component={Categories} path="/app/home/settings/categories" />
                 <Redirect from="/app" to="/app/home/dashboard" />
               </Switch>

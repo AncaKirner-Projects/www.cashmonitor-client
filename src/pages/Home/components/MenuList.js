@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink  } from 'react-router-dom';
 
-import { menuList, getIcon } from './helpers/menuLinks';
+import { menuList, getIcon } from '../helpers/menuLinks';
 
 const selectableLink = (menu) => {
   return (

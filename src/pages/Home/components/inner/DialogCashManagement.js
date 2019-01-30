@@ -10,7 +10,6 @@ import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui
 class DialogCashManagement extends Component {
   state = {
     open: false,
-    openAlertDialog: false,
     formData: {
       amount: '',
       date: '2018-11-29',
@@ -60,6 +59,7 @@ class DialogCashManagement extends Component {
           <DialogTitle disableTypography  id="form-dialog-title" className="dialog-header">{title}</DialogTitle>
           <DialogContent>
             <TextField
+              autoFocus
               margin="normal"
               id="date"
               label="Date"
@@ -70,7 +70,7 @@ class DialogCashManagement extends Component {
                 shrink: true,
               }}
               validators={['required']}
-              errormessages={['This field is required']}
+              errorMessages={['This field is required']}
             />
             <TextValidator
               margin="normal"
@@ -81,7 +81,7 @@ class DialogCashManagement extends Component {
               value={formData.amount}
               onChange={this.handleChange('amount')}
               validators={['required', 'isNumber']}
-              errormessages={['This field is required', 'Amount is not valid']}
+              errorMessages={['This field is required', 'Amount is not valid']}
             />
             <TextValidator
               id="standard-textarea"
@@ -93,11 +93,10 @@ class DialogCashManagement extends Component {
               value={formData.description}
               onChange={this.handleChange('description')}
               validators={['required']}
-              errormessages={['This field is required']}
+              errorMessages={['This field is required']}
             />
             <SelectValidator
               id="standard-select-currency-native"
-              autoFocus
               select
               label="Account"
               className="select-text-field"
@@ -113,11 +112,9 @@ class DialogCashManagement extends Component {
               fullWidth
               name="account"
               validators={['required']}
-              errormessages={['This field is required']}
+              errorMessages={['This field is required']}
             >
-              <option key={0} value="Please select">
-                - Please select -
-                </option>
+              <option key={0} value="Please select"></option>
               <option key={1} value="Portofel">
                 Portofel
                 </option>

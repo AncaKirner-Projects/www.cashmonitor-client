@@ -28,6 +28,18 @@ export let menuList = [
     icon: 'category',
     classname: 'material-icons menu-element'
   },
+  {
+    label: 'Reports',
+    href: '',
+    icon: '',
+    classname: 'material-icons menu-header'
+  },
+  {
+    label: 'Accounts',
+    href: '/app/home/raports/accounts',
+    icon: 'category',
+    classname: 'material-icons menu-element'
+  },
 ];
 
 export const getIcon = (name) => {
