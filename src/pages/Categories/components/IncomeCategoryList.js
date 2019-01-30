@@ -11,7 +11,27 @@ const incCategories = [
 ];
 
 class IncomeCategoryList extends Component {
-  state = {  }
+  state = { 
+    categories: [
+      { id:1, name: 'Salary' },
+      { id:2, name: 'Meal voucher' },
+      { id:3, name: 'Gift' }
+    ]
+  }
+
+  handleChange = (id, e) => {
+    console.log('change');
+    this.setState({categories: [...this.state.categories, {id, name: e.target.value} ]});
+  }
+
+  handleAddCategory = () => {
+    this.setState({
+      categories: [
+        ...this.state.categories,
+        { id: 4, name: ''}
+      ]
+    });
+  }
 
   render() { 
     return ( 
@@ -20,18 +40,19 @@ class IncomeCategoryList extends Component {
           Income Categories
         </Typography>
         {
-          incCategories && incCategories.map((categ) => 
+          this.state.categories && this.state.categories.map((categ) => 
             <TextField
               id="outlined-cat-name"
               className={''}
-              defaultValue="Category name"
+              placeholder="Category name"
               value={categ.name}
               margin="normal"
               variant="outlined"
+              onChange={(e) => this.handleChange(categ.id, e)}
             />
-        )}        
+        )}
         <Fab color="primary" aria-label="Add" className={''}>
-          <AddIcon />
+          <AddIcon onClick={this.handleAddCategory}/>
         </Fab>
       </React.Fragment>
     );
