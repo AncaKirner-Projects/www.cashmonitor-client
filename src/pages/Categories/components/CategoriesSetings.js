@@ -8,8 +8,8 @@ class CategoriesSettings extends Component {
   render() { 
     return ( 
       <React.Fragment>
-        {/* <BudgetSettings />
-        <CategoryList /> */}
+        {/* <BudgetSettings /> */}
+        <CategoryList />
         <IncomeCategoryList />
       </React.Fragment>
     );

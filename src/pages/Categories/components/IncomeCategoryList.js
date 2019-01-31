@@ -4,14 +4,9 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 
-const incCategories = [
-  { id:1, name: 'Salary' },
-  { id:2, name: 'Meal voucher' },
-  { id:3, name: 'Gift' }
-];
-
 class IncomeCategoryList extends Component {
-  state = { 
+  state = {
+    lastId: 3,
     categories: [
       { id:1, name: 'Salary' },
       { id:2, name: 'Meal voucher' },
@@ -20,41 +15,46 @@ class IncomeCategoryList extends Component {
   }
 
   handleChange = (id, e) => {
-    console.log('change');
-    this.setState({categories: [...this.state.categories, {id, name: e.target.value} ]});
+    const categoryList = [...this.state.categories];    
+    const index = categoryList.findIndex(elem => id === elem.id);
+    categoryList[index].name = e.target.value;
+
+    this.setState({ categories: categoryList })
   }
 
   handleAddCategory = () => {
+    const nextId = this.state.lastId + 1;
     this.setState({
       categories: [
         ...this.state.categories,
-        { id: 4, name: ''}
-      ]
+        { id: nextId, name: ''}
+      ], 
+      lastId: nextId
     });
   }
 
-  render() { 
+  render() {
     return ( 
-      <React.Fragment>
+      <div className="categ-div">
         <Typography variant="h6" component="h6">
-          Income Categories
+          Income Categories &nbsp;&nbsp;
+          <Fab color="primary" aria-label="Add" size="small">
+            <AddIcon onClick={this.handleAddCategory}/>
+          </Fab>
         </Typography>
         {
           this.state.categories && this.state.categories.map((categ) => 
-            <TextField
-              id="outlined-cat-name"
-              className={''}
-              placeholder="Category name"
-              value={categ.name}
-              margin="normal"
-              variant="outlined"
-              onChange={(e) => this.handleChange(categ.id, e)}
-            />
+            <div key={'icl'+categ.id} className='inc-cat-input input-height'>
+              <TextField
+                placeholder="Category name"
+                value={categ.name}
+                margin="normal"
+                variant="outlined"
+                onChange={(e) => this.handleChange(categ.id, e)}
+              />
+            </div>
         )}
-        <Fab color="primary" aria-label="Add" className={''}>
-          <AddIcon onClick={this.handleAddCategory}/>
-        </Fab>
-      </React.Fragment>
+      </div>
     );
   }
 }

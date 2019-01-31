@@ -15,7 +15,7 @@ export const theme = {
   flatButton: { primaryTextColor: '#ff694c', disabledTextColor: '#c1c1c1', secondaryTextColor: '#11cd69' },
   fontFamily: 'Raleway, sans-serif',
   overlay: { backgroundColor: 'rgba(44, 43, 49, 0.3)' },
-  palette: { primary: { 500:'#53a3a3' } },
+  palette: { primary: { main:'#53a3a3' }, secondary: {main: '#428bca'} },
   spacing: { desktopGutter: 34 },
   textField: { focusColor: '#FF884B', hintColor: '#9E9E9E' },
   overrides: {
