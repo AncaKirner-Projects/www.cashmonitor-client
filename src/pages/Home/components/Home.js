@@ -3,9 +3,9 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 
 import SideBar from './SideBar';
 import TopBar from './TopBar';
-import AccountSettings from '../../Accounts/components/AccountsSettings';
+import AccountSettings from '../../Accounts/components/settings/AccountsSettings';
 import Categories from '../../Categories/components/CategoriesSetings';
-import Dashboard from '../../Accounts/components/AccountsSettings';
+import Dashboard from '../../Accounts/components/settings/AccountsSettings';
 
 class Home extends React.Component {
   render() {

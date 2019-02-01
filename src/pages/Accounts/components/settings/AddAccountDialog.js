@@ -5,7 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
-import { currencies, accountTypes } from '../../../helpers/types';
+import { currencies, accountTypes } from '../../../../helpers/types';
 
 class AddAccountDialog extends Component {
   state = { 
@@ -41,7 +41,7 @@ class AddAccountDialog extends Component {
 
   handleSubmit = () => {
     this.handleClose();
-    // this.props.onSubmit(this.state.formData);
+    this.props.onSubmit(this.state.formData);
   }
 
   render() {

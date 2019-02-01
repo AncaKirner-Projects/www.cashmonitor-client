@@ -7,14 +7,6 @@ import ActionsButtons from './ActionsButtons';
 
 const tableData = {
   align: 'left',
-  header: [
-    'Account',
-    'Type',
-    'Balance',
-    'Currency',
-    'Status',
-    'Actions'
-  ],
   data: [
     {id: 1, name: 'Portofel A', type: 'cash', balance: 100, currency: 'RON', status: 'activ'},
     {id: 2, name: 'Card ING A', type: 'card', balance: 300, currency: 'RON', status: 'activ'}
@@ -22,12 +14,16 @@ const tableData = {
 };
 
 class AccountList extends Component {
-  state = { 
-    account: {
-      name: '1',
-      type: '1',
-      balance: '1',
-      currency: '1'
+  constructor(props) {
+    super(props);
+    this.state = {
+      accounts: props.accounts
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.accounts !== this.state.accounts) {
+      this.setState({ accounts: nextProps.accounts });
     }
   }
 
@@ -42,17 +38,21 @@ class AccountList extends Component {
   }
 
   handleDelete = (id) =>{
-    console.log('delete', id);
-  }
+    const accounts = [...this.state.accounts];
+    const newList = accounts.filter((elem) => id !== elem.id);
 
-  handleDone = (id) =>{
-    console.log('done', id);
+    this.setState({
+      ...this.state,
+      accounts: newList
+    });
   }
 
   render() { 
+    const { accounts } = this.state;
+    console.log();
     return ( 
       <TableBody>
-        { tableData.data.map((row, id) => (
+        { accounts.map((row, id) => (
           <TableRow key={`tr${row.id}`}>
             <TableCell align="right">
               {row.name}

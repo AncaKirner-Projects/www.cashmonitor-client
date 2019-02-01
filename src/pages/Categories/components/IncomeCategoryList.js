@@ -3,15 +3,36 @@ import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
+import Delete from '@material-ui/icons/DeleteForever';
+import IconButton from '@material-ui/core/IconButton';
+
+import ConfirmationDialog from '../../Application/components/ConfirmationDialog';
 
 class IncomeCategoryList extends Component {
   state = {
+    openConfirm: false,
+    confirmTitle: 'Confirmation',
+    confirmQuestion: 'Are you sure you want to delete the item?',
+    categId: 0,
     lastId: 3,
     categories: [
       { id:1, name: 'Salary' },
       { id:2, name: 'Meal voucher' },
       { id:3, name: 'Gift' }
     ]
+  }
+
+  handleOpenConfirmationDialog = (categId) => {
+    this.setState({
+      openConfirm: true,
+      categId
+    });
+  }
+
+  handleConfirmationClose = () => {
+    this.setState({
+      openConfirm: false
+    });
   }
 
   handleChange = (id, e) => {
@@ -29,6 +50,18 @@ class IncomeCategoryList extends Component {
         ...this.state.categories,
         { id: nextId, name: ''}
       ], 
+      lastId: nextId
+    });
+  }
+
+  handleDeleteCategory = () => {
+    const nextId = this.state.lastId - 1;
+    const categories = [...this.state.categories];
+    const newList = categories.filter((elem) => elem.id !== this.state.categId);
+
+    this.setState({
+      openConfirm: false,
+      categories: newList,
       lastId: nextId
     });
   }
@@ -52,8 +85,22 @@ class IncomeCategoryList extends Component {
                 variant="outlined"
                 onChange={(e) => this.handleChange(categ.id, e)}
               />
+              <IconButton
+                aria-owns='material-appbar'
+                aria-haspopup="true"
+                onClick={this.props.onDone}
+              >
+                <Delete onClick={() => this.handleOpenConfirmationDialog(categ.id)}/>
+              </IconButton> 
             </div>
         )}
+        <ConfirmationDialog 
+          open={this.state.openConfirm}
+          title={this.state.confirmTitle}
+          question={this.state.confirmQuestion}
+          onHandleClose={this.handleConfirmationClose}
+          onHandleConfirmOk={this.handleDeleteCategory}
+        />
       </div>
     );
   }

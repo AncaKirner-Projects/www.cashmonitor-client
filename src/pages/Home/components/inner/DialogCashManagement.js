@@ -124,6 +124,56 @@ class DialogCashManagement extends Component {
                 </option>
               ))} */}
             </SelectValidator>
+            <SelectValidator
+              select
+              label="Category"
+              className="select-text-field"
+              value={formData.categ}
+              onChange={this.handleChange('categ')}
+              SelectProps={{
+                native: true,
+                MenuProps: {
+                  className: "select-menu"
+                }
+              }}
+              margin="normal"
+              fullWidth
+              name="category"
+              validators={['required']}
+              errorMessages={['This field is required']}
+            >
+              <option key={0} value=""></option>
+              {/* {categories && categories.map(option => (
+                <option key={option.id} value={option.id}>
+                  {option.name}
+                </option>
+              ))} */}
+            </SelectValidator>
+            <SelectValidator
+              select
+              label="Subcategory"
+              className="select-text-field"
+              value={formData.subcateg}
+              onChange={this.handleChange('subcateg')}
+              SelectProps={{
+                native: true,
+                MenuProps: {
+                  className: "select-menu"
+                }
+              }}
+              margin="normal"
+              fullWidth
+              name="subcategory"
+              validators={['required']}
+              errorMessages={['This field is required']}
+            >
+              <option key={0} value=""></option>
+              {/* {categories && categories.map(option => (
+                <option key={option.id} value={option.id}>
+                  {option.name}
+                </option>
+              ))} */}
+            </SelectValidator>
           </DialogContent>
           <DialogActions>
             <Button

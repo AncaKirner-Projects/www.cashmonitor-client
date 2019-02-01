@@ -25,14 +25,6 @@ class ActionsButtons extends Component {
         >
           <Delete />
         </IconButton>
-        <IconButton
-          aria-owns='material-appbar'
-          aria-haspopup="true"
-          onClick={this.props.onDone}
-          color="inherit"
-        >
-          <Done />
-        </IconButton>
       </React.Fragment>
     );
   }

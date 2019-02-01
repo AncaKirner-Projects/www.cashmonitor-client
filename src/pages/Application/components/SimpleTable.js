@@ -7,27 +7,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
-// import IconButton from '@material-ui/core/IconButton';
-// import Edit from '@material-ui/icons/Edit';
-// import Delete from '@material-ui/icons/DeleteForever';
-// import Done from '@material-ui/icons/Done';
-import AddAccountDialog from '../../Accounts/components/AddAccountDialog';
-import ActionsButtons from '../../Accounts/components/ActionsButtons';
-import AccountList from '../../Accounts/components/AccountList';
-
-let id = 0;
-function createData(name, calories, fat, carbs, protein) {
-  id += 1;
-  return { id, name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+import AddAccountDialog from '../../Accounts/components/settings/AddAccountDialog';
+import AccountList from '../../Accounts/components/settings/AccountList';
 
 const tableData = {
   align: 'left',
@@ -46,9 +27,14 @@ const buttons = [
 
 class SimpleTable extends Component {
   state = {
+    lastId: 2,
     open: false,
     dialogTile: '',
-    account: {}
+    account: {},
+    accounts: [
+      {id: 1, name: 'Portofel A', type: 'cash', balance: 100, currency: 'RON', status: 'activ'},
+      {id: 2, name: 'Card ING A', type: 'card', balance: 300, currency: 'RON', status: 'activ'}
+    ],
   }
 
   handleClickOpen = (title, account) => {
@@ -59,11 +45,31 @@ class SimpleTable extends Component {
     this.setState({ open: false });
   }
 
-  handleAddAcount = () => {
-    console.log('add account');
+  handleAddAcount = (data) => {
+    const nextId = this.state.lastId + 1;
+    const accounts = [...this.state.accounts];
+    const newAccount = {
+      id: nextId,
+      name: data.account,
+      type: data.type,
+      balance: data.balance,
+      currency: data.currency,
+      status: 'activ'
+    };
+    accounts.push(newAccount);
+    
+    this.setState({
+      ...this.state,
+      accounts,
+      open: false,
+      lastId: nextId
+    })
+
   }
 
   render() {
+    const { accounts } = this.state;
+    console.log('render', accounts);
     return (
       <Paper key='pacc' className="paper-table-div">
         <Table className="simple-table">
@@ -74,7 +80,7 @@ class SimpleTable extends Component {
               ))}
             </TableRow>
           </TableHead>
-          <AccountList onOpenDialog={this.handleClickOpen}/>
+          <AccountList onOpenDialog={this.handleClickOpen} accounts={accounts}/>
         </Table>
         <div className="btns-div">
           {buttons.map((btn, id) => 
@@ -90,7 +96,7 @@ class SimpleTable extends Component {
           open={this.state.open}
           title={this.state.dialogTile}
           data={this.state.account}
-          onSubmit={this.handleSubmit}
+          onSubmit={this.handleAddAcount}
           onClose={this.handleClose}
         />
       </Paper>

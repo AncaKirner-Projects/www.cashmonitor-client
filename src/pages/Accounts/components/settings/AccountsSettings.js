@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import SimpleTable from '../../Application/components/SimpleTable';
+import SimpleTable from '../../../Application/components/SimpleTable';
 
 class AccountSettings extends Component {
   state = {}

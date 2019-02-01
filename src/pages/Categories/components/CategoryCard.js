@@ -16,10 +16,19 @@ class CategoryCard extends Component {
     super(props);
     this.state = {
       openConfirm: false,
+      confirmTitle: 'Confirmation',
+      confirmQuestion: 'Are you sure you want to delete the item?',
+      subcategId: 0,
       lastId: 4,
       disabled: this.props.disabled,
       category: props.category
     };
+  }
+
+  handleConfirmationClose = () => {
+    this.setState({
+      openConfirm: false
+    });
   }
 
   handleChangeCategoryName = (e) => {
@@ -62,6 +71,13 @@ class CategoryCard extends Component {
     // todo: save in redux
   }
 
+  handleOpenConfirmationDialog = (subcategId) => {
+    this.setState({
+      openConfirm: true,
+      subcategId
+    });
+  }
+
   handleAddSubcategory = () => {
     const nextId = this.state.lastId + 1;
     const subcategories = !!this.state.category.subcategories ? 
@@ -76,12 +92,13 @@ class CategoryCard extends Component {
     });
   }
 
-  handleDeleteSubcaregory = (id) => {
+  handleDeleteSubcategory = () => {
     const nextId = this.state.lastId - 1;
     const subcategories = [...this.state.category.subcategories];
-    const newList = subcategories.filter((elem) => elem.id !== id);
+    const newList = subcategories.filter((elem) => elem.id !== this.state.subcategId);
 
     this.setState({
+      openConfirm: false,
       category: {
         ...this.state.category,
         subcategories: newList
@@ -135,19 +152,19 @@ class CategoryCard extends Component {
                     aria-haspopup="true"
                     onClick={this.props.onDone}
                   >
-                    <Delete onClick={() => this.handleDeleteSubcaregory(categ.id)}/>
-                  </IconButton>
+                    <Delete onClick={() => this.handleOpenConfirmationDialog(categ.id)}/>
+                  </IconButton>                  
                 </div>
             )}
           </div>
-          <ConfirmationDialog 
-            open={this.state.openConfirm}
-            title={}
-            question={}
-            onHandleClose={}
-            onHandleConfirmOk={}
-          />
         </CardContent>
+        <ConfirmationDialog 
+          open={this.state.openConfirm}
+          title={this.state.confirmTitle}
+          question={this.state.confirmQuestion}
+          onHandleClose={this.handleConfirmationClose}
+          onHandleConfirmOk={this.handleDeleteSubcategory}
+        />
       </Card>
     );
   }

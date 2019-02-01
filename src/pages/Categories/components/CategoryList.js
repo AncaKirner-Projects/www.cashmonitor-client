@@ -4,10 +4,15 @@ import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 
 import CategoryCard from './CategoryCard';
+import ConfirmationDialog from '../../Application/components/ConfirmationDialog';
 
 class CategoryList extends Component {
   state = {
     disabled: true,
+    openConfirm: false,
+    confirmTitle: 'Confirmation',
+    confirmQuestion: 'Are you sure you want to delete the category?',
+    categId: 0,
     lastId: 4,
     categories: [
       {
@@ -39,18 +44,31 @@ class CategoryList extends Component {
     });
   }
 
-  handleDeleteCaregory = (id) => {
+  handleDeleteCaregory = () => {
     const categories = [...this.state.categories];
-    const newList = categories.filter((elem) => elem.id !== id);
+    const newList = categories.filter((elem) => elem.id !== this.state.categId);
 
     this.setState({
       ...this.state,
+      openConfirm: false,
       categories: newList
     });
   }
 
-  render() { 
-    console.log(this.state);
+  handleConfirmationClose = () => {
+    this.setState({
+      openConfirm: false
+    });
+  }
+
+  handleOpenConfirmationDialog = (categId) =>{
+    this.setState({
+      openConfirm: true,
+      categId
+    });
+  }
+
+  render() {
     return ( 
       <div>
         <Typography variant="h6" component="h6">
@@ -64,9 +82,16 @@ class CategoryList extends Component {
             <CategoryCard key={'cl'+categ.id}
               category={categ} 
               disabled={this.state.disabled} 
-              onDeleteCaregory={this.handleDeleteCaregory}
+              onDeleteCaregory={this.handleOpenConfirmationDialog}
             />
         )}
+        <ConfirmationDialog 
+          open={this.state.openConfirm}
+          title={this.state.confirmTitle}
+          question={this.state.confirmQuestion}
+          onHandleClose={this.handleConfirmationClose}
+          onHandleConfirmOk={this.handleDeleteCaregory}
+        />
       </div>
     );
   }
