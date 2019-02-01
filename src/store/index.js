@@ -4,9 +4,11 @@ import thunk from 'redux-thunk';
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
-// import { apiMiddleware } from 'redux-api-middleware';
+import { reduxFirestore, getFirestore } from 'redux-firestore';
+import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
 
 import * as reducerList from './reducers';
+import fbConfig from '../config/fbConfig';
 
 export const history = createBrowserHistory();
 
@@ -15,12 +17,16 @@ const reducers = combineReducers({
   ...reducerList
 })
 
-let middlewares = [thunk];
+let middlewares = [
+  thunk.withExtraArgument({getFirebase, getFirestore})
+];
 
 const store = createStore(
   reducers,
   composeWithDevTools(
-    applyMiddleware(routerMiddleware(history), ...middlewares)
+    applyMiddleware(routerMiddleware(history), ...middlewares),
+    reduxFirestore(fbConfig),
+    reactReduxFirebase(fbConfig)
   )
 );;
 
