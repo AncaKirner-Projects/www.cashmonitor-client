@@ -26,7 +26,8 @@
     "redux-firestore": "^0.6.3",
     "redux-thunk": "^2.3.0",
     "sass-loader": "^7.1.0",
-    "styled-components": "^4.1.1"
+    "styled-components": "^4.1.1",
+    "uniqid": "^5.0.3"
   },
   "scripts": {
     "dev": "webpack --mode development",

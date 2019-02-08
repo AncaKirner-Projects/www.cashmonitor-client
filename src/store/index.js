@@ -12,6 +12,7 @@ import fbConfig from '../config/fbConfig';
 
 export const history = createBrowserHistory();
 
+console.log(reducerList);
 const reducers = combineReducers({
   router: connectRouter(history),
   ...reducerList

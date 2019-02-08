@@ -54,6 +54,7 @@ class AddAccountDialog extends Component {
     return (
       <Dialog
         open={open}
+        onSubmit={this.handleSubmit}
         onClose={this.handleClose}
         aria-labelledby="form-dialog-title"
       >

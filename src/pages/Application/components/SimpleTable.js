@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import uniqid from 'uniqid';
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
@@ -9,6 +11,7 @@ import Button from '@material-ui/core/Button';
 
 import AddAccountDialog from '../../Accounts/components/settings/AddAccountDialog';
 import AccountList from '../../Accounts/components/settings/AccountList';
+import { addAccount } from '../../Accounts/actions/accountActions';
 
 const tableData = {
   align: 'left',
@@ -58,6 +61,7 @@ class SimpleTable extends Component {
     };
     accounts.push(newAccount);
     
+    this.props.addAccount(newAccount);
     this.setState({
       ...this.state,
       accounts,
@@ -69,14 +73,13 @@ class SimpleTable extends Component {
 
   render() {
     const { accounts } = this.state;
-    console.log('render', accounts);
     return (
       <Paper key='pacc' className="paper-table-div">
         <Table className="simple-table">
           <TableHead>
             <TableRow key='th0'>
               { tableData.header.map((header, id) => (
-                <TableCell key={`h${id}`} className="simple-table-header" align={tableData.align}>{header}</TableCell>
+                <TableCell key={uniqid()} className="simple-table-header" align={tableData.align}>{header}</TableCell>
               ))}
             </TableRow>
           </TableHead>
@@ -84,12 +87,10 @@ class SimpleTable extends Component {
         </Table>
         <div className="btns-div">
           {buttons.map((btn, id) => 
-            <React.Fragment>
-              <Button key={`btn${id}`} variant="contained" color="primary" className={btn.class}
-                onClick={() => this[btn.clickFn](btn.name)}>
-                {btn.name}
-              </Button>
-            </React.Fragment>
+            <Button key={uniqid()} variant="contained" color="primary" className={btn.class}
+              onClick={() => this[btn.clickFn](btn.name)}>
+              {btn.name}
+            </Button>
           )}    
         </div>
         <AddAccountDialog
@@ -104,4 +105,10 @@ class SimpleTable extends Component {
   }
 }
 
-export default SimpleTable;
+const mapDispatchToProps = (dispatch) => ({
+  ...bindActionCreators({
+    addAccount
+  }, dispatch)
+});
+
+export default connect(null, mapDispatchToProps)(SimpleTable);

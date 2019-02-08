@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import uniqid from 'uniqid';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -49,28 +50,28 @@ class AccountList extends Component {
 
   render() { 
     const { accounts } = this.state;
-    console.log();
+
     return ( 
       <TableBody>
         { accounts.map((row, id) => (
-          <TableRow key={`tr${row.id}`}>
-            <TableCell align="right">
+          <TableRow key={uniqid()}>
+            <TableCell key={uniqid()} align="right">
               {row.name}
             </TableCell>
-            <TableCell  align="right">
+            <TableCell key={uniqid()} align="right">
               {row.type}
             </TableCell>
-            <TableCell  align="right">
+            <TableCell key={uniqid()} align="right">
               {row.balance}
             </TableCell>
-            <TableCell  align="right">
+            <TableCell key={uniqid()} align="right">
               {row.currency}
             </TableCell>
-            <TableCell  align="right">
+            <TableCell key={uniqid()} align="right">
               {row.status}
             </TableCell>
-            <TableCell  align="center">
-              <ActionsButtons                 
+            <TableCell key={uniqid()} align="center">
+              <ActionsButtons key={uniqid()}              
                 onEdit={() => this.handleEdit(row)}
                 onDelete={() => this.handleDelete(row.id)}
                 onDone={() => this.handleDone(row.id)}/> 
