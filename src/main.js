@@ -9,10 +9,10 @@ import store from './store';
 
 ReactDOM.render(
   <Provider store={store}>
-    <div>
-      <MuiThemeProvider theme={theme}>
-        {require('./routes').routes}
-      </MuiThemeProvider>
-    </div>
+      <div>
+        <MuiThemeProvider theme={theme}>
+          {require('./routes').routes}
+        </MuiThemeProvider>
+      </div>
   </Provider>, document.getElementById('root')
 );

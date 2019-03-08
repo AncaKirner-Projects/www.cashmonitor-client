@@ -5,16 +5,6 @@ import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 import { login } from '../actions/authActions';
-import  { history } from '../../../store/index';
-
-const INTL_MAP = {
-  loginLabel: 'Please enter your user information',
-  usLabel: 'Username',
-  pwLabel: 'Password',
-  signInLabel: 'Sign in',
-  empty_username: 'Please enter your username',
-  empty_password: 'Please enter your password'
-};
 
 class LoginForm extends React.Component {
   state = {
@@ -24,21 +14,31 @@ class LoginForm extends React.Component {
     }
   };
 
+  /**
+   * Triggered when the credential inputs content are changed  
+   * @param {string} name The input name
+   * @param {Event} e
+   * @returns None Change the state with the input data inserte
+   */
   handleChange = name => (e) => {
     const { formData } = this.state;
     formData[name] = e.target.value;
     this.setState({ formData });
   }
 
+  /**
+   * Logs in a user when the credentials are correct
+    TODO: when credentials not correct show a message with toastr
+    @param {Event} e 
+    @returns None Change the state into redux store so the success will trigger the render function to redirect
+   */
   handleLogin = (e) => {
     e.preventDefault();
     const user = {
       email: this.state.formData.email,
       password: this.state.formData.password
     }
-
     this.props.login(user);
-    history.push('/app');
   }
 
   render() {
@@ -85,9 +85,7 @@ class LoginForm extends React.Component {
 }
 
 const mapDispatchToProps = dispatch =>({
-  ...bindActionCreators({
-    login
-  }, dispatch)
+  ...bindActionCreators({ login }, dispatch)
 });
 
 export default connect(null, mapDispatchToProps)(LoginForm);

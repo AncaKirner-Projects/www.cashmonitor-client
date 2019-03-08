@@ -3,6 +3,11 @@ import { NavLink  } from 'react-router-dom';
 
 import { menuList, getIcon } from '../helpers/menuLinks';
 
+/**
+ * Returns the NavLink Component that contains a sub-menu composed by icon and menu name
+ * @param {Object} menu 
+ * @returns <Component>
+ */
 const selectableLink = (menu) => {
   return (
     <NavLink activeClassName="selected" to={menu.href}>
@@ -18,8 +23,8 @@ class MenuList extends React.Component {
      { 
       menuList.map((menu, i) => 
         <li key={i}>
-          { 
-            menu.icon ? selectableLink(menu) : <span className="header-menu">{menu.label}</span>
+          { // Returns an icon item together with the name as a sub-menu or the menu name as a header
+            menu.icon ? selectableLink(menu) : <span className="header-menu">{menu.label}</span> 
           }
         </li>
       )

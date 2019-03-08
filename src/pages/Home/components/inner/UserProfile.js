@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -6,6 +8,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import removeCookies from '../../../../helpers/cookiesRemover';
 import { history } from '../../../../store/index';
+import { logout } from '../../../Login/actions/authActions';
 
 class UserProfile extends Component {
   state = {
@@ -23,7 +26,7 @@ class UserProfile extends Component {
 
   handleLogout = () => {
     removeCookies(true);
-  //   // this.props.logout();
+    this.props.logout();
     history.push('/login');
   }
 
@@ -53,5 +56,13 @@ class UserProfile extends Component {
      );
   }
 }
- 
-export default (UserProfile);
+
+/**
+ * Get access to the action logout defined in redux actions
+ * @param {function} dispatch 
+ */
+const mapDispatchToProps = dispatch =>({
+  ...bindActionCreators({ logout }, dispatch)
+});
+
+export default connect(null, mapDispatchToProps)(UserProfile);

@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import SimpleTable from '../../../Application/components/SimpleTable';
+import AccountsTable from './AccountsTable';
 
 class AccountSettings extends Component {
   state = {}
+
   render() {
     return (
       <React.Fragment>
         <Typography className="content-header" variant="h5" component="h2">
           My Accounts
         </Typography>
-        <SimpleTable />
+        <AccountsTable />
       </React.Fragment>
     );
   }
 }
 
-export default AccountSettings;
+export default (AccountSettings);

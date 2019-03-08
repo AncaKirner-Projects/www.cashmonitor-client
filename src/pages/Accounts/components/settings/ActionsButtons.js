@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import uniqid from 'uniqid';
 import IconButton from '@material-ui/core/IconButton';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/DeleteForever';
@@ -8,7 +9,7 @@ class ActionsButtons extends Component {
   render() {
     return (
       <React.Fragment>
-        <IconButton
+        <IconButton key={uniqid()}
           aria-owns='material-appbar'
           aria-haspopup="true"
           onClick={this.props.onEdit}
@@ -16,7 +17,7 @@ class ActionsButtons extends Component {
         >
           <Edit />
         </IconButton>
-        <IconButton
+        <IconButton key={uniqid()}
           aria-owns='material-appbar'
           aria-haspopup="true"
           onClick={this.props.onDelete}

@@ -1,4 +1,6 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import SideBar from './SideBar';
@@ -6,8 +8,16 @@ import TopBar from './TopBar';
 import AccountSettings from '../../Accounts/components/settings/AccountsSettings';
 import Categories from '../../Categories/components/CategoriesSetings';
 import Dashboard from '../../Accounts/components/settings/AccountsSettings';
+import { getAccounts } from '../../Accounts/actions/accountActions';
 
 class Home extends React.Component {
+  /**
+   * After component is mounted get the account list from API
+   */
+  componentDidMount = () => {
+    this.props.getAccounts();
+  }
+
   render() {
     return (
       <div>
@@ -30,4 +40,12 @@ class Home extends React.Component {
   }
 }
 
-export default (Home);
+/**
+ * Get access to the action getAccounts defined in redux actions
+ * @param {function} dispatch 
+ */
+const mapDispatchToProps = (dispatch) => ({
+  ...bindActionCreators({getAccounts}, dispatch)
+});
+
+export default connect(null, mapDispatchToProps)(Home);
