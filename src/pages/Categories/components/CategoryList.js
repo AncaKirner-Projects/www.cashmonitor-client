@@ -7,6 +7,7 @@ import CategoryCard from './CategoryCard';
 import ConfirmationDialog from '../../Application/components/ConfirmationDialog';
 
 class CategoryList extends Component {
+  // TODO: change dummy data to come from API
   state = {
     disabled: true,
     openConfirm: false,
@@ -33,6 +34,7 @@ class CategoryList extends Component {
   }
 
   handleAddCategory = () => {
+    // TODO: remove nextId when API data given
     const nextId = this.state.lastId + 1;
     this.setState({
       categories: [

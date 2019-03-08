@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
 
 export function isAuthenticated() {
-  return !!Cookies.get('userAuthenticated');
+  return !!Cookies.get('idToken');
 }

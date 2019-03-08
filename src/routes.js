@@ -7,6 +7,7 @@ import LoginPage from './pages/Login/components/LoginPage';
 import  { history } from './store/index';
 
 export const routes = (
+  //synchronize router state with redux store, history will be available through connected components
   <ConnectedRouter history={history}>
     <Switch>
       <Route component={LoginPage} path="/login" />

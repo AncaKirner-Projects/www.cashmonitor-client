@@ -3,6 +3,7 @@ import Equalizer from '@material-ui/icons/Equalizer';
 import AccountBalanceWallet from '@material-ui/icons/AccountBalanceWallet';
 import Category from '@material-ui/icons/Category';
 
+// contains the menu list
 export let menuList = [
   {
     label: 'Dashboard',
@@ -42,6 +43,11 @@ export let menuList = [
   },
 ];
 
+/**
+ * Returns the icon component depending on the given parameter
+ * @param {string} name 
+ * @returns null|<Component>
+ */
 export const getIcon = (name) => {
   let icons = [];
   icons['dashboard'] = <Equalizer />;

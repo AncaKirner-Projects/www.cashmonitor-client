@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import uniqid from 'uniqid';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
 import ActionsButtons from './ActionsButtons';
-
-const tableData = {
-  align: 'left',
-  data: [
-    {id: 1, name: 'Portofel A', type: 'cash', balance: 100, currency: 'RON', status: 'activ'},
-    {id: 2, name: 'Card ING A', type: 'card', balance: 300, currency: 'RON', status: 'activ'}
-  ]
-};
+import { deleteAccount } from '../../actions/accountActions';
 
 class AccountList extends Component {
   constructor(props) {
@@ -39,21 +34,15 @@ class AccountList extends Component {
   }
 
   handleDelete = (id) =>{
-    const accounts = [...this.state.accounts];
-    const newList = accounts.filter((elem) => id !== elem.id);
-
-    this.setState({
-      ...this.state,
-      accounts: newList
-    });
+    this.props.deleteAccount(id);
   }
 
-  render() { 
-    const { accounts } = this.state;
+  render() {
+    const { accounts } = this.props;
 
     return ( 
       <TableBody>
-        { accounts.map((row, id) => (
+        { accounts && accounts.toJS().map((row, id) => (
           <TableRow key={uniqid()}>
             <TableCell key={uniqid()} align="right">
               {row.name}
@@ -83,5 +72,14 @@ class AccountList extends Component {
   }
 }
  
-export default AccountList;
+const mapStateToProps = (state) => ({
+  accounts: state.accounts ? state.accounts.get('list') : null
+});
+const mapDispatchToProps = (dispatch) => ({
+  ...bindActionCreators({
+    deleteAccount
+  }, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccountList);
 

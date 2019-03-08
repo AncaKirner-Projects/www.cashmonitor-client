@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 
 const removeCookies= (redirect) => {
-  Cookies.remove('userAuthenticated', { path: '/' });
+  Cookies.remove('idToken', { path: '/' });
 }
 
 export default removeCookies;

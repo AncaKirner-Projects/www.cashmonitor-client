@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ConfirmationDialog from '../../Application/components/ConfirmationDialog';
 
 class IncomeCategoryList extends Component {
+  // TODO: change dummy data to come from API
   state = {
     openConfirm: false,
     confirmTitle: 'Confirmation',

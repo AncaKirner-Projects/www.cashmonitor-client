@@ -11,8 +11,8 @@ class SideBar extends React.Component {
     return (
       <div className="app-side-bar">
         <Drawer open={this.state.open}
-        variant="permanent"
-        classes={{paper: "drawer"}}
+          variant="permanent"
+          classes={{paper: "drawer"}}
         >
           <div className="app-side-bar-options">
             <MenuList />

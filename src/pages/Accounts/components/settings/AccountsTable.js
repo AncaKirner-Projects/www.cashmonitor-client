@@ -9,11 +9,12 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
-import AddAccountDialog from '../../Accounts/components/settings/AddAccountDialog';
-import AccountList from '../../Accounts/components/settings/AccountList';
-import { addAccount } from '../../Accounts/actions/accountActions';
+import AddAccountDialog from './AddAccountDialog';
+import AccountList from './AccountList';
+import { addAccount, editAccount } from '../../actions/accountActions';
 
-const tableData = {
+// TODO: change dummy data with firebase
+const tableHeaderData = {
   align: 'left',
   header: [
     'Account',
@@ -28,65 +29,66 @@ const buttons = [
   {class: 'btn-align-right', name: 'Add Account', clickFn: 'handleClickOpen', closeFn: 'handleClose' }
 ];
 
-class SimpleTable extends Component {
+class AccountsTable extends Component {
   state = {
-    lastId: 2,
     open: false,
     dialogTile: '',
-    account: {},
-    accounts: [
-      {id: 1, name: 'Portofel A', type: 'cash', balance: 100, currency: 'RON', status: 'activ'},
-      {id: 2, name: 'Card ING A', type: 'card', balance: 300, currency: 'RON', status: 'activ'}
-    ],
+    account: {}
   }
 
   handleClickOpen = (title, account) => {
     this.setState({ open: true, dialogTile: title, account});
   }
 
+  /**
+   * Will close the (Add account or Edit account) modal
+   */
   handleClose = () => {
     this.setState({ open: false });
   }
 
+  /**
+   * Add or edit account will change the store data
+   * @param {Object} data Input data came from form
+   */
   handleAddAcount = (data) => {
-    const nextId = this.state.lastId + 1;
-    const accounts = [...this.state.accounts];
+    //create a new object with the data needed
     const newAccount = {
-      id: nextId,
       name: data.account,
       type: data.type,
       balance: data.balance,
       currency: data.currency,
-      status: 'activ'
+      status: 'activ',
+      createdTime: new Date()
     };
-    accounts.push(newAccount);
     
-    this.props.addAccount(newAccount);
-    this.setState({
-      ...this.state,
-      accounts,
-      open: false,
-      lastId: nextId
-    })
-
+    // for edit action the account will be saved in state to persist the form
+    if (this.state.account) {
+      this.props.editAccount(newAccount);
+    } else {
+      this.props.addAccount(newAccount);
+    }
   }
 
   render() {
-    const { accounts } = this.state;
     return (
       <Paper key='pacc' className="paper-table-div">
         <Table className="simple-table">
           <TableHead>
             <TableRow key='th0'>
-              { tableData.header.map((header, id) => (
-                <TableCell key={uniqid()} className="simple-table-header" align={tableData.align}>{header}</TableCell>
+              { tableHeaderData.header.map((header) => (
+                <TableCell key={uniqid()} 
+                  className="simple-table-header" 
+                  align={tableHeaderData.align}>{header}
+              </TableCell>
               ))}
             </TableRow>
           </TableHead>
-          <AccountList onOpenDialog={this.handleClickOpen} accounts={accounts}/>
+          <AccountList onOpenDialog={this.handleClickOpen}/>
         </Table>
         <div className="btns-div">
-          {buttons.map((btn, id) => 
+          { // get the array buttons and put the list into the page
+            buttons.map((btn) => 
             <Button key={uniqid()} variant="contained" color="primary" className={btn.class}
               onClick={() => this[btn.clickFn](btn.name)}>
               {btn.name}
@@ -107,8 +109,9 @@ class SimpleTable extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
-    addAccount
+    addAccount,
+    editAccount
   }, dispatch)
 });
 
-export default connect(null, mapDispatchToProps)(SimpleTable);
+export default connect(null, mapDispatchToProps)(AccountsTable);

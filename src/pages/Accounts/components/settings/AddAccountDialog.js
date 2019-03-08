@@ -14,47 +14,60 @@ class AddAccountDialog extends Component {
       type: '',
       balance: '',
       currency: ''
+    },
+    changed: false
+  }
+
+  static getDerivedStateFromProps(props, state){
+    if (props.open && !!props.data && !state.changed) {
+      return {
+        formData: {...props.data}
+      }
     }
-   }
+    return null;
+  }
 
   componentDidMount() {
+    // Add a validation rule for input fields - check if the value string is not empty
     ValidatorForm.addValidationRule('minLength', value => (value.length > 0) ? true : false);
   }
   
   handleClose = () => {
     this.props.onClose();
+    // reset the modal inputs to be empty
     this.setState({
       formData: {
         account: '',
         type: '',
         balance: '',
         currency: ''
-      }
+      },
+      changed: false
     });
   }
 
   handleChange = name => (e) => {
     const { formData } = this.state;
     formData[name] = e.target.value;
-    this.setState({ formData });
+    this.setState({
+      formData,
+      changed: true
+    });
   };
 
-  handleSubmit = () => {
-    this.handleClose();
+  handleSubmit = (e) => {
+    e.preventDefault();
     this.props.onSubmit(this.state.formData);
+    this.handleClose();
   }
 
   render() {
     let { formData } = this.state;
-    const { open, title, data } = this.props;
+    const { open, title } = this.props;
 
-    if (data) {
-      formData = data;
-    }
     return (
       <Dialog
         open={open}
-        onSubmit={this.handleSubmit}
         onClose={this.handleClose}
         aria-labelledby="form-dialog-title"
       >

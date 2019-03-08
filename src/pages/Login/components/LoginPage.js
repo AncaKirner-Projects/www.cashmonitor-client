@@ -8,6 +8,7 @@ import { history } from '../../../store/index';
 
 class LoginPage extends React.Component {
   render(){
+    // if user is logged in redirect to /app
     if (isAuthenticated()) {
       history.push('/app');
     }
